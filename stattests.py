@@ -88,7 +88,7 @@ def kruskal_wallis_h_test():
 
 def friedman_test():
     return
-    
+
 #%%
 def import_data(data):
     # load libraries
@@ -167,6 +167,8 @@ def menu():
         20. Wilcoxon Signed-Rank Test
         21. Kruskal-Wallis H Test
         22. Friedman Test
+        
+        Enter '999' to leave.
         """
     )
     test = int(input("\nWhich test do you want to run? "))
@@ -216,7 +218,9 @@ def menu():
             kruskal_wallis_h_test()
         elif test == 22:
             friedman_test()
-
+        elif test == 999:
+            break
+        else: print("Not a valid command.  Please try again.\n")
 
     return test
 # %%
