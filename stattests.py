@@ -23,14 +23,46 @@ Kruskal-Wallis H Test
 Friedman Test
 '''
 #%%
-def import_data(path, whatelse):
-    path = ""
-    data = ""
-    return data
+def import_data(data):
+    # load libraries
+    import os
+    import pandas as pd
 
+    # set path if not already extant
+    path = "data/temp"     
+    try:
+        os.mkdir(path)
+    except OSError:
+        print("Creation of the directory %s failed; it already exists." % path)
+    df = pd.read_csv('data/')     # load data into df
+    return df
 
 #%%
 # Shapir-wilk normality test
-def shapiro_wilk_test():
+def shapiro_wilk_test(df):
+    choice = "Y"
+    while choice.upper() == "Y":
+        try:
+            CI = float(input(
+                f"You're about to perform a normality check.  Which Confidence Interval do you desire?\n"
+                f"Enter value between 0.0 and 0.1: "
+            ))
+            if 0 > CI or CI > 1.0:
+                raise ValueError
+        except ValueError:
+            print ("Only enter a value between 0.0 and 0.1.")
+        choice = input("Would you like to try again? (Y/N) ")
+
     from scipy.stats import shapiro
-    data = []
+    stat, p = shapiro(df)
+    print(f"{stat:.4f}, {p:.4f}")
+    if p > CI:
+        print('Probably Gaussian')
+    else:
+        print("Probably not Gaussian")
+# %%
+def main():
+    shapiro_wilk_test()
+# %%
+if __name__ == '__main__':
+    main()
