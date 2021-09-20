@@ -8,22 +8,22 @@ It depends!!!
 #%%
 from scipy.stats.stats import median_absolute_deviation, percentileofscore
 
-def std_dev_outliers(data):
+def std_dev_outliers(dataIn):
     from numpy import mean
     from numpy import std
 
     # make this user defined in another increment
     numSD = 3
 
-    data = ""
-    dataMean, dataStd = mean(data), std(data)
+    # data = ""
+    dataMean, dataStd = mean(dataIn), std(dataIn)
     cutoff = dataStd * numSD
     lower, upper = dataMean - cutoff, dataMean + cutoff
 
     # look for data in the tails of the cutoff
-    outliers = [x for x in data if x < lower or x > upper]
+    outliers = [x for x in dataIn if x < lower or x > upper]
     print(f"Outliers observed: {len(outliers)}")
-    outliersRemoved =  [x for x in data if x >= lower and x <= upper]
+    outliersRemoved =  [x for x in dataIn if x >= lower and x <= upper]
     print(f"Non-outlier observed: {len(outliersRemoved)}")
 
     return outliers, outliersRemoved
@@ -81,6 +81,8 @@ def data_to_frame(data):
     import pandas as pd
     # file = "/data/weight.xlsx" - testing parameters and arguments
     df = pd.read_excel(data, header = True)
+    # extract column "u" for weights
+    df = df["u"]
     return df
 #%%
 def data_import():
