@@ -8,7 +8,6 @@ It depends!!!
 #%%
 from scipy.stats.stats import median_absolute_deviation, percentileofscore
 
-
 def std_dev_outliers(data):
     from numpy import mean
     from numpy import std
@@ -49,8 +48,9 @@ def local_outlier_factor():
     from sklearn.metrics import mean_absolute_error
 
     file = "/data/weight.xlsx"
-    df = pd.read_excel(file, header = None)
+    df = pd.read_excel(file, header = True)
     data = df.values
+    data.shape()
     # split into input and output elements
     X, y = data[:, :-1], data[:, -1]
     print(X.shape, y.shape) # summarize data set shape
@@ -72,8 +72,33 @@ def local_outlier_factor():
     # select all rows that aren't outliers
     mask = yhat != -1
     X_train, y_train = X_train [mask, :], y_train[mask]
+#%%
+def data_to_frame(data):
+    """
+    Uses the imported data file.
+    Returns a dataframe with the data loaded.
+    """
+    import pandas as pd
+    # file = "/data/weight.xlsx" - testing parameters and arguments
+    df = pd.read_excel(data, header = True)
+    return df
+#%%
+def data_import():
+    """
+    This imports the data file for all modules.
+    """    
+    file = input(f"Enter file location: ")
+    # file = "/data/weight.xlsx" - testing parameters and arguments
+    return file
+#%%    
+def main():
+    mainFile = data_import()
+    mainDF = data_to_frame(mainFile)
+    local_outlier_factor(mainDF)
+    return
 # %%
-
+if __name__ == "__main__":
+    main()
 # %%
 
 # %%
