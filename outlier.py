@@ -42,14 +42,14 @@ def IQR (data):
     print(f"Non-outlier observed: {len(outliersRemoved)}")
 # %%
 def local_outlier_factor():
-    import pandas
+    import pandas as pd
     from sklearn.model_selection import train_test_split
     from sklearn.linear_model import LinearRegression
     from sklearn.neighbors import LocalOutlierFactor
     from sklearn.metrics import mean_absolute_error
 
-    data = ""
-    df = read_csv(data, header = None)
+    file = "/data/weight.xlsx"
+    df = pd.read_excel(file, header = None)
     data = df.values
     # split into input and output elements
     X, y = data[:, :-1], data[:, -1]
